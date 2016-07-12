@@ -49,7 +49,10 @@ func (c *AuthController) Get() {
 	w.Header().Set("Igenetech-User-Email", user.Email)
 	roles := ""
 	for k, _ := range user.Roles {
-		roles += k
+		if k != "" {
+			roles += k
+			roles += ","
+		}
 	}
 
 	w.Header().Set("Igenetech-User-Roles", roles)
@@ -98,7 +101,10 @@ func (c *AuthByCookieController) Get() {
 	w.Header().Set("Igenetech-User-Email", user.Email)
 	roles := ""
 	for k, _ := range user.Roles {
-		roles += k
+		if k != "" {
+			roles += k
+			roles += ","
+		}
 	}
 
 	w.Header().Set("Igenetech-User-Roles", roles)
