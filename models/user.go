@@ -11,6 +11,7 @@ type User struct {
 	Email    string            `json:"Email"`
 	Password string            `json:"password`
 	Roles    map[string]bool   `json:"roles"`
+	Apps     map[string]bool   `json:"apps"`
 	Tokens   map[string]string `json:"-"`
 }
 
@@ -36,4 +37,8 @@ func (user *User) FindById(id string) (code int, err error) {
 
 func (user *User) HasToken(iss string, token string) bool {
 	return user.Tokens[iss] == token
+}
+
+func (user *User) HasDomain(domain string) bool {
+	return user.Apps[strings.Replace(domain, ".", " ", -1)]
 }
