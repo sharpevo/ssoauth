@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/astaxie/beego"
 	"gopkg.in/mgo.v2/bson"
 	"ssoauth/mongo"
 	"strings"
