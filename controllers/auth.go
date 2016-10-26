@@ -36,7 +36,7 @@ func (c *AuthController) Get() {
 
 	if !user.HasDomain(c.Ctx.Input.Domain()) {
 		beego.Debug("CheckApp:", c.Ctx.Input.Domain(), "Failed")
-		c.AuthFail()
+		c.AccessForbidden()
 		return
 	}
 
@@ -103,7 +103,7 @@ func (c *AuthByCookieController) Get() {
 
 	if !user.HasDomain(c.Ctx.Input.Domain()) {
 		beego.Debug("CheckApp:", c.Ctx.Input.Domain(), "Failed")
-		c.AuthFail()
+		c.AccessForbidden()
 		return
 	}
 

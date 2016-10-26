@@ -172,6 +172,11 @@ func (c *BaseController) ParseTokenFromCookie() (t *jwt.Token, e *ControllerErro
 	beego.Debug("Token:", token)
 	return token, nil
 }
+
 func (c *BaseController) AuthFail() {
 	http.Error(c.Ctx.ResponseWriter, "Not logged in", http.StatusUnauthorized)
+}
+
+func (c *BaseController) AccessForbidden() {
+	http.Error(c.Ctx.ResponseWriter, "Forbidden", http.StatusForbidden)
 }
