@@ -34,6 +34,12 @@ func (c *AuthController) Get() {
 		return
 	}
 
+	if !user.HasDomain(c.Ctx.Input.Domain()) {
+		beego.Debug("CheckApp:", c.Ctx.Input.Domain(), "Failed")
+		c.AuthFail()
+		return
+	}
+
 	userAgent := c.ParseUserAgent()
 
 	ok := user.HasToken(userAgent, token.Raw)
@@ -91,6 +97,12 @@ func (c *AuthByCookieController) Get() {
 	ok := user.HasToken(userAgent, token.Raw)
 	if !ok {
 		beego.Debug("HasToken:", "Token is valid but revoked by user.")
+		c.AuthFail()
+		return
+	}
+
+	if !user.HasDomain(c.Ctx.Input.Domain()) {
+		beego.Debug("CheckApp:", c.Ctx.Input.Domain(), "Failed")
 		c.AuthFail()
 		return
 	}
