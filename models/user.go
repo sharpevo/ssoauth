@@ -41,7 +41,8 @@ func (user *User) HasToken(iss string, token string) bool {
 }
 
 func (user *User) HasDomain(domain string) bool {
-	if user.Email == "quwubin@gmail.com" {
+	if user.Email == "quwubin@gmail.com" ||
+		domain == beego.AppConfig.DefaultString("uicdomain", "accounts.igenetech.com") {
 		return true
 	} else {
 		return user.Apps[strings.Replace(domain, ".", " ", -1)]
