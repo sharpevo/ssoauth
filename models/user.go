@@ -5,16 +5,21 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"ssoauth/mongo"
 	"strings"
+	uic "uic/models"
 )
 
-type User struct {
+type User2 struct {
 	Id       bson.ObjectId     `json:"id" bson:"_id"`
 	Name     string            `json:"name"`
 	Email    string            `json:"Email"`
 	Password string            `json:"password`
 	Roles    map[string]bool   `json:"roles"`
-	Apps     map[string]bool   `json:"apps"`
+	Apps     map[string]bool   `json:"apps" bson:"appids"`
 	Tokens   map[string]string `json:"-"`
+}
+
+type User struct {
+	*uic.User
 }
 
 func (user *User) FindById(id string) (code int, err error) {
