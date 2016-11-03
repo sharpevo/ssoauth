@@ -8,7 +8,7 @@ import (
 	uic "uic/models"
 )
 
-type User2 struct {
+type User struct {
 	Id       bson.ObjectId     `json:"id" bson:"_id"`
 	Name     string            `json:"name"`
 	Email    string            `json:"Email"`
@@ -18,9 +18,9 @@ type User2 struct {
 	Tokens   map[string]string `json:"-"`
 }
 
-type User struct {
-	*uic.User
-}
+//type User struct {
+//*uic.User
+//}
 
 func (user *User) FindById(id string) (code int, err error) {
 	session, err := mongo.CopyMasterSession()
@@ -34,7 +34,7 @@ func (user *User) FindById(id string) (code int, err error) {
 		return ERROR_INPUT, err
 	}
 
-	err = collection.FindId(bson.ObjectIdHex(id)).One(user)
+	err = collection.FindId(bson.ObjectIdHex(id)).One(&user)
 	if err != nil {
 		return ERROR_NOT_FOUND, err
 	}
