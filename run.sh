@@ -7,4 +7,4 @@ sed 's,mongohost.*,'mongohost="${MONGO_HOST:-db:27017}"',g' -i conf/app.conf
 sed 's,mongouser.*,'mongouser="${MONGO_USER:-uic}"',g' -i conf/app.conf
 sed 's,mongopassword.*,'mongopassword="${MONGO_PASSWORD:-Goo7ieho}"',g' -i conf/app.conf
 sed 's,uicdomain.*,'uicdomain="${UIC_DOMAIN:-accounts.igenetech.com}"',g' -i conf/app.conf
-ssoauth
+./ssoauth
