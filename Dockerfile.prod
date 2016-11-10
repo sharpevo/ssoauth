@@ -1,0 +1,6 @@
+FROM reg.igenetech.com/library/alpine
+ADD . /go/src/ssoauth
+WORKDIR /go/src/ssoauth
+RUN find /go/src/ssoauth -name "*.go" | xargs rm
+ENTRYPOINT /bin/sh ./run.sh
+EXPOSE 8010
