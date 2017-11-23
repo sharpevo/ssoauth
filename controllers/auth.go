@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
@@ -53,6 +54,8 @@ func (c *AuthController) Get() {
 	w.Header().Set("Igenetech-User-Id", user.Id.Hex())
 	w.Header().Set("Igenetech-User-Name", user.Name)
 	w.Header().Set("Igenetech-User-Email", user.Email)
+	userRoleBytes, _ := json.Marshal(user.Roles)
+	w.Header().Set("igenetech-User-Role", string(userRoleBytes))
 	roles := ""
 	for k, _ := range user.Roles {
 		if k != "" {
@@ -111,6 +114,8 @@ func (c *AuthByCookieController) Get() {
 	w.Header().Set("Igenetech-User-Id", user.Id.Hex())
 	w.Header().Set("Igenetech-User-Name", user.Name)
 	w.Header().Set("Igenetech-User-Email", user.Email)
+	userRoleBytes, _ := json.Marshal(user.Roles)
+	w.Header().Set("igenetech-User-Role", string(userRoleBytes))
 	roles := ""
 	for k, _ := range user.Roles {
 		if k != "" {

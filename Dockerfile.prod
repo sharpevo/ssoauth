@@ -1,4 +1,8 @@
 FROM reg.igenetech.com/library/alpine
+
+ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
+
 ADD . /go/src/ssoauth
 WORKDIR /go/src/ssoauth
 RUN find /go/src/ssoauth -name "*.go" | xargs rm
