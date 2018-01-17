@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
+	"net/url"
 	"ssoauth/models"
 )
 
@@ -111,8 +112,16 @@ func (c *AuthByCookieController) Get() {
 	}
 
 	w := c.Ctx.ResponseWriter
+	userName := ""
+	encodedUserName, encodeErr := url.Parse(user.Name)
+	if encodeErr != nil {
+		beego.Error("UserNameEncode", encodeErr)
+		userName = user.Name
+	} else {
+		userName = encodedUserName.EscapedPath()
+	}
 	w.Header().Set("Igenetech-User-Id", user.Id.Hex())
-	w.Header().Set("Igenetech-User-Name", user.Name)
+	w.Header().Set("Igenetech-User-Name", userName)
 	w.Header().Set("Igenetech-User-Email", user.Email)
 	userRoleBytes, _ := json.Marshal(user.Roles)
 	w.Header().Set("igenetech-User-Role", string(userRoleBytes))
